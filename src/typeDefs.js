@@ -2,11 +2,9 @@ import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
 type Query {
-    helloWorld: String!
-    dogs: [Dog!]!
     exams:[Exam!]!
     exam(id: ID!): Exam!
-    question(id: ID!): Question!
+    question(questionId: ID!, examId :ID!): Question!
 }
 type Dog {
     id: ID!
@@ -25,6 +23,7 @@ type Question {
 type Exam {
     id: ID
     title: String
+    description: String
     questions:[Question!]
 }
 type Mutation {

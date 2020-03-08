@@ -17,6 +17,7 @@ const Question  = new Schema({
 
 const ExamSchema  = new Schema({
   title: String,
+  description: String,
   questions: [Question]
 });
 

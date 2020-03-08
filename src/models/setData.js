@@ -1,14 +1,17 @@
 import { Exam } from './Exam';
-
+import  faker  from 'faker';
 async function main() {
+  let questions = [];
+  Array(70).fill().forEach(_=>{
+    questions.push({
+      name: faker.lorem.sentence(),
+      answers :[{name: "madrid"},{ name:"london"}, {name:"france", correct:true}]
+    })
+  });
   await Exam.create({
-    title: 'also_awesome',
-    questions: [
-      {
-        name: "Which is the capital of France",
-        answers :[{name: "madrid"},{ name:"london"}, {name:"france", correct:true}]
-      }
-    ]
+    title: 'Title Exam',
+    description: faker.lorem.paragraph(),
+    questions: questions
   })
 }
 
