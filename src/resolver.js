@@ -1,14 +1,27 @@
 import { Exam } from "./models/Exam";
-
 export const resolvers = {
   Query: {
     exams: () => Exam.find(),
     exam: async (parent, args, _, __) =>{
       return Exam.findById(args.id).exec()
     },
-    question: async (parent, args, _, __) =>{
-      const exam = await Exam.findById(args.examId).exec();
-      return exam.questions.find(q=> q._id.toString() === args.questionId);
+    getQuestionById: async (parent, args, _, __) =>{
+      const exam = await Exam.findById(args.examId);
+      return exam.questions.id(args.questionId);
+    },
+    getQuestion: async (parent, args, _, __) =>{
+      let question ={};
+      const exam = await Exam.findOne({_id: args.examId},
+          {
+            questions: { $slice: [args.questionNum - 1 , 1 ] }
+          });
+
+      if(exam.questions[0]) {
+        question = exam.questions[0];
+        question.next = args.questionNum+1;
+        question.prev = (args.questionNum-1) > 0 ? args.questionNum-1 : undefined
+      }
+      return question;
     },
   },
   Mutation: {

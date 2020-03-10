@@ -4,7 +4,8 @@ export const typeDefs = gql`
 type Query {
     exams:[Exam!]!
     exam(id: ID!): Exam!
-    question(questionId: ID!, examId :ID!): Question!
+    getQuestionById(questionId: ID!, examId :ID!): Question!
+    getQuestion(questionNum: Int!, examId :ID!): QuestionPage!
 }
 type Dog {
     id: ID!
@@ -28,5 +29,12 @@ type Exam {
 }
 type Mutation {
     createDog(name: String!): Dog!
+}
+type QuestionPage {
+    id: ID
+    name: String
+    answers:[Answer!]
+    prev: Int
+    next: Int
 }
 `;
