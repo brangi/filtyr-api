@@ -5,7 +5,7 @@ type Query {
     exams:[Exam!]!
     exam(id: ID!): Exam!
     getQuestionById(questionId: ID!, examId :ID!): Question!
-    getQuestion(questionNum: Int!, examId :ID!): QuestionPage!
+    getQuestion(questionNum: Int!, examId :ID!, total :Int): QuestionPage!
 }
 type Dog {
     id: ID!
@@ -14,7 +14,6 @@ type Dog {
 type Answer {
     id: ID
     name: String
-    correct: Boolean
 }
 type Question {
     id: ID

@@ -6,7 +6,8 @@ const Answer  = new Schema({
   name: String,
   correct:  {
     type: Boolean,
-    default: false
+    default: false,
+    select: false
   }
 });
 
