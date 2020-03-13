@@ -1,4 +1,16 @@
 import mongoose from "mongoose";
+/*
+const main =async ()=>{
+  try {
+    await mongoose.connect("mongodb://127.0.0.1:27017/filtyr", {useNewUrlParser: true, useUnifiedTopology: true})
+  }catch(err){
+    console.log(err)
+  }
+};
+
+main()
+
+ */
 
 const Schema = mongoose.Schema;
 

@@ -2,7 +2,7 @@ import { Exam } from './Exam';
 import  faker  from 'faker';
 async function main() {
   let questions = [];
-  Array(70).fill().forEach(_=>{
+  Array(10).fill().forEach(_=>{
     questions.push({
       name: faker.lorem.sentence(),
       answers :[{name: "madrid"},{ name:"london"}, {name:"france", correct:true}]

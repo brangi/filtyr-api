@@ -33,6 +33,7 @@ type QuestionPage {
     id: ID
     name: String
     answers:[Answer!]
+    page: Int
     prev: Int
     next: Int
 }

@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import { ApolloServer, gql} from "apollo-server-express";
 import {resolvers} from "./resolver";
 import { typeDefs } from "./typeDefs";
-//require('./models/setData');
 const server = async () => {
   const app = express();
   const server = new ApolloServer({

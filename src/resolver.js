@@ -10,7 +10,6 @@ export const resolvers = {
       return exam.questions.id(args.questionId);
     },
     getQuestion: async (parent, args, _, __) =>{
-      console.log(args);
       let question ={};
       const exam = await Exam.findOne({_id: args.examId},
           {
@@ -19,6 +18,7 @@ export const resolvers = {
 
       if(exam.questions[0]) {
         question = exam.questions[0];
+        question.page = args.questionNum;
         question.next = (args.questionNum+1 <= args.total)? args.questionNum+1  : undefined;
         question.prev = (args.questionNum-1) > 0 ? args.questionNum-1 : undefined
       }
