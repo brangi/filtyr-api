@@ -1,4 +1,6 @@
 import { Exam } from "./models/Exam";
+import { ExamResult } from "./models/ExamResult";
+
 export const resolvers = {
   Query: {
     exams: () => Exam.find(),
@@ -26,10 +28,23 @@ export const resolvers = {
     },
   },
   Mutation: {
-    createDog: async(_, { name }) => {
-      const puppy = new Dog({ name });
-      await puppy.save();
-      return puppy;
+    startExam: async(_, { demoTaker, exam }) => {
+      const examResult = new ExamResult({
+        demoTaker,
+        exam
+      });
+      await examResult.save();
+      return examResult
+    },
+    answerQuestion: async(_, { question, answer }) => {
+      console.log({question, answer});
+      const examResult  = await ExamResult.find({});
+      examResult[0].answers.push({
+        question,
+        answer
+      });
+      await examResult[0].save();
+      return examResult[0]
     }
   }
 };

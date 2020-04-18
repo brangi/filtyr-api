@@ -13,6 +13,7 @@ main()
  */
 
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const Answer  = new Schema({
   name: String,
@@ -28,14 +29,23 @@ const Question  = new Schema({
   answers: [Answer],
 });
 
-const ExamSchema  = new Schema({
-  title: String,
+const AnsweredQuestion  = new Schema({
+  question: { type: Schema.Types.ObjectId },
+  answer: { type: Schema.Types.ObjectId },
+});
+
+const ExamResultSchema  = new Schema({
+  exam: { type: Schema.Types.ObjectId, ref: 'Exam' },
   type: {
     type: String,
     default: 'demo'
   },
-  description: String,
-  questions: [Question]
+  //taker: { type: Schema.Types.ObjectId, ref: 'User' },
+  demoTaker: String, // IP or email temporarily?
+  answers:[AnsweredQuestion],
+  results: {
+    correct: Number,
+  },
 });
 
-export const Exam = mongoose.model("Exam", ExamSchema);
+export const ExamResult = mongoose.model("ExamResult", ExamResultSchema);

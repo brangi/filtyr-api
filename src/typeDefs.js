@@ -7,9 +7,11 @@ type Query {
     getQuestionById(questionId: ID!, examId :ID!): Question!
     getQuestion(questionNum: Int!, examId :ID!, total :Int): QuestionPage!
 }
-type Dog {
+type ExamResult {
     id: ID!
-    name: String!
+    demoTaker: String
+    type: String
+    exam: ID
 }
 type Answer {
     id: ID
@@ -26,9 +28,6 @@ type Exam {
     description: String
     questions:[Question!]
 }
-type Mutation {
-    createDog(name: String!): Dog!
-}
 type QuestionPage {
     id: ID
     name: String
@@ -37,4 +36,9 @@ type QuestionPage {
     prev: Int
     next: Int
 }
+type Mutation {
+    startExam(demoTaker: String!, exam: ID!): ExamResult!,
+    answerQuestion(question: ID!, answer: ID!): ExamResult!
+}
+
 `;
