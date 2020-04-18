@@ -20,19 +20,19 @@
   "homepage": "https://github.com/brangi/filtyr-api#readme",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
+    "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "nodemon": "^2.0.2"
+    "@babel/preset-env": "^7.9.5",
+    "nodemon": "^2.0.3"
   },
   "dependencies": {
-    "apollo-server-express": "^2.11.0",
+    "apollo-server-express": "^2.12.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "faker": "^4.1.0",
-    "graphql": "^14.6.0",
-    "knex": "^0.20.11",
-    "mongoose": "^5.9.3",
-    "pg": "^7.18.2"
+    "graphql": "^15.0.0",
+    "knex": "^0.20.15",
+    "mongoose": "^5.9.9",
+    "pg": "^8.0.2"
   }
 }
