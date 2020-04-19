@@ -28,7 +28,7 @@ export const resolvers = {
     },
   },
   Mutation: {
-    startExam: async(_, { demoTaker, exam }) => {
+    startExamMutation: async(_, { demoTaker, exam }) => {
       const examResult = new ExamResult({
         demoTaker,
         exam
@@ -36,15 +36,15 @@ export const resolvers = {
       await examResult.save();
       return examResult
     },
-    answerQuestion: async(_, { question, answer }) => {
-      console.log({question, answer});
-      const examResult  = await ExamResult.find({});
-      examResult[0].answers.push({
+    answerQuestion: async(_, {examResultId, question, answer }) => {
+      console.log({question, answer, examResultId});
+      const examResult  = await ExamResult.findById(examResultId);
+      examResult.answers.push({
         question,
         answer
       });
-      await examResult[0].save();
-      return examResult[0]
+      await examResult.save();
+      return examResult
     }
   }
 };

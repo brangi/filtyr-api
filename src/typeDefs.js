@@ -37,8 +37,8 @@ type QuestionPage {
     next: Int
 }
 type Mutation {
-    startExam(demoTaker: String!, exam: ID!): ExamResult!,
-    answerQuestion(question: ID!, answer: ID!): ExamResult!
+    startExamMutation(demoTaker: String!, exam: ID!): ExamResult!,
+    answerQuestion(examResultId :ID!, question: ID!, answer: ID!): ExamResult!
 }
 
 `;
