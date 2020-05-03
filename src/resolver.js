@@ -11,6 +11,10 @@ export const resolvers = {
       const exam = await Exam.findById(args.examId);
       return exam.questions.id(args.questionId);
     },
+    getExamResult: async (parent, args, _, __) =>{
+      const examResult = await ExamResult.findById(args.examResultId);
+      return examResult;
+    },
     getQuestion: async (parent, args, _, __) =>{
       let question ={};
       const exam = await Exam.findOne({_id: args.examId},

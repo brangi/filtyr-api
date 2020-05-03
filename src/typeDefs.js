@@ -6,12 +6,15 @@ type Query {
     exam(id: ID!): Exam!
     getQuestionById(questionId: ID!, examId :ID!): Question!
     getQuestion(questionNum: Int!, examId :ID!, total :Int): QuestionPage!
+    getExamResult(examResultId: ID!): ExamResult!
 }
 type ExamResult {
     id: ID!
     demoTaker: String
     type: String
     exam: ID
+    lastAnsweredNoQuestion: Int
+    totalQuestions: Int
 }
 type Answer {
     id: ID

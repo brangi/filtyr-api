@@ -1,17 +1,5 @@
 import mongoose from "mongoose";
-/*
-const main =async ()=>{
-  try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/filtyr", {useNewUrlParser: true, useUnifiedTopology: true})
-  }catch(err){
-    console.log(err)
-  }
-};
-
-main()
-
- */
-
+import {Exam} from "./Exam"
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
@@ -40,12 +28,20 @@ const ExamResultSchema  = new Schema({
     type: String,
     default: 'demo'
   },
-  //taker: { type: Schema.Types.ObjectId, ref: 'User' },
   demoTaker: String, // IP or email temporarily?
   answers:[AnsweredQuestion],
   results: {
     correct: Number,
   },
+  lastAnsweredNoQuestion: Number,
+  totalQuestions: Number
+});
+
+ExamResultSchema.pre('save', async function (next) {
+   this.lastAnsweredNoQuestion = this.answers.length;
+   const exam = await Exam.findById(this.exam);
+   this.totalQuestions = exam.questions.length;
+   next();
 });
 
 export const ExamResult = mongoose.model("ExamResult", ExamResultSchema);
