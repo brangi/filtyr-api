@@ -17,13 +17,13 @@ export const resolvers = {
           {
             questions: { $slice: [args.questionNum - 1 , 1 ] }
           });
-
       if(exam.questions[0]) {
         question = exam.questions[0];
         question.page = args.questionNum;
         question.next = (args.questionNum+1 <= args.total)? args.questionNum+1  : undefined;
         question.prev = (args.questionNum-1) > 0 ? args.questionNum-1 : undefined
       }
+      question.exam = exam._id;
       return question;
     },
   },
@@ -37,7 +37,6 @@ export const resolvers = {
       return examResult
     },
     answerQuestion: async(_, {examResultId, question, answer }) => {
-      console.log({question, answer, examResultId});
       const examResult  = await ExamResult.findById(examResultId);
       examResult.answers.push({
         question,

@@ -29,16 +29,16 @@ type Exam {
     questions:[Question!]
 }
 type QuestionPage {
-    id: ID
+    id: ID!
     name: String
     answers:[Answer!]
     page: Int
     prev: Int
     next: Int
+    exam: ID
 }
 type Mutation {
     startExamMutation(demoTaker: String!, exam: ID!): ExamResult!,
     answerQuestion(examResultId :ID!, question: ID!, answer: ID!): ExamResult!
 }
-
 `;
