@@ -1,5 +1,5 @@
-import { Exam } from "./models/Exam";
-import { ExamResult } from "./models/ExamResult";
+import { Exam } from "../models/Exam";
+import { ExamResult } from "../models/ExamResult";
 
 export const resolvers = {
   Query: {

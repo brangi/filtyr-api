@@ -1,8 +1,13 @@
 import express from "express";
-import mongoose from "mongoose";
 import { ApolloServer, gql} from "apollo-server-express";
-import {resolvers} from "./resolver";
-import { typeDefs } from "./typeDefs";
+import bodyParser from "body-parser"
+import cors from "cors";
+
+import {resolvers} from "./graphql/resolver";
+import { typeDefs } from "./graphql/typeDefs";
+import initDB from "./db/mongo"
+import user from "./rest/routes/user"
+
 const server = async () => {
   const app = express();
   const server = new ApolloServer({
@@ -10,14 +15,16 @@ const server = async () => {
     resolvers
   });
 
-  server.applyMiddleware({app});
-  try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/filtyr", {useNewUrlParser: true, useUnifiedTopology: true})
-  }catch(err){
-    console.log(err)
-  }
+  app.use(cors());
+  app.use(bodyParser.json());
 
-  app.get('/', (req, res) => res.send('hello world'));
+  //graphql exams
+  server.applyMiddleware({app});
+
+  await initDB();
+  
+  //auth for dash
+  app.use("/api/v1/user", user);
 
   app.listen({port: 4001}, ()=> {
     console.log('==============API Running=============')
@@ -25,4 +32,4 @@ const server = async () => {
 
 };
 
-server();
+server().then(() => console.log('Start'));
