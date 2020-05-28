@@ -81,13 +81,13 @@ router.post(
         }
       };
 
-      jwt.sign(payload, "secret", { expiresIn: '60 days' }, (err, token) => {
-          if (err) throw err;
-          res.status(200).json({
-            token
-          });
-        }
-      );
+      const token = jwt.sign(payload, "secret");
+      res.cookie('accessToken', token, {
+       // maxAge: 5184000,
+        httpOnly: true
+      });
+      res.status(200).end();
+
     } catch (e) {
       console.error(e);
       res.status(500).json({
@@ -143,13 +143,13 @@ router.post(
         }
       };
 
-      jwt.sign(payload, "secret", { expiresIn: '60 days' }, (err, token) => {
-          if (err) throw err;
-          res.status(200).json({
-            token
-          });
-        }
-      );
+      const token = jwt.sign(payload, "secret");
+      res.cookie('accessToken', token, {
+        //maxAge: 5184000,
+        httpOnly: true
+      });
+      res.status(200).end();
+
     } catch (err) {
       console.log(err.message);
       res.status(500).send("Internal error");
