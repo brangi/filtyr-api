@@ -83,7 +83,7 @@ router.post(
 
       const token = jwt.sign(payload, "secret");
       res.cookie('accessToken', token, {
-       // maxAge: 5184000,
+        expires: new Date(Date.now() + 700 * 3600000) ,
         httpOnly: true
       });
       res.status(200).end();
@@ -145,7 +145,7 @@ router.post(
 
       const token = jwt.sign(payload, "secret");
       res.cookie('accessToken', token, {
-        //maxAge: 5184000,
+        expires: new Date(Date.now() + 700 * 3600000) ,
         httpOnly: true
       });
       res.status(200).end();
@@ -165,6 +165,11 @@ router.get("/profile", auth, async (req, res) => {
     console.log(err.message);
     res.status(500).send("Internal error");
   }
+});
+
+router.post('/logout', auth,(req,res)=> {
+  res.clearCookie('accessToken');
+  res.status(204).send();
 });
 
 export default router;
