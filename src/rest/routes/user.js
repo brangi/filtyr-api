@@ -4,7 +4,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 const router = express.Router();
 import { User } from "../../models/User";
+import {Token} from '../../models/Token';
 import auth from "../middleware/auth"
+import mailer from  "../../email/init"
+import emailData from  "../../email/emailData"
+import crypto from "crypto";
 
 //TODO gmail fb signup
 router.post("/login/social", [], async (req, res) => {
@@ -136,13 +140,14 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
-
+      const regToken = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
       const payload = {
         user: {
           id: user.id
         }
       };
-
+      await regToken.save();
+      await mailer.send(emailData('reg',user.email, {regToken: regToken.token}));
       const token = jwt.sign(payload, "secret");
       res.cookie('accessToken', token, {
         expires: new Date(Date.now() + 700 * 3600000) ,

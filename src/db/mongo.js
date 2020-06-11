@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const initDB = async () => {
   try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/filtyr", {useNewUrlParser: true, useUnifiedTopology: true})
+    await mongoose.connect("mongodb://127.0.0.1:27017/filtyr", {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true})
   }catch(err){
     console.log(err)
   }
